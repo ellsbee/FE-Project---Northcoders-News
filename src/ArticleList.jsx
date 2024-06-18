@@ -8,15 +8,14 @@ function ArticleList() {
     useEffect(() => {
         getArticles().then((data) => {
             setArticles(data.articles)
-            console.log(data.articles)
         })
     }, [])
 
     return (
         <section>
             <ul id="article" className="article-list">
-                {articles.map((articles) => {
-                return <ArticleCard articles={articles} key={articles.title}/>
+                {articles.map((article) => {
+                return <ArticleCard article={article} key={article.article_id}/>
             })}
             </ul>
         </section>
