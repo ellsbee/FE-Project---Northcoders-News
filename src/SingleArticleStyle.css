@@ -6,9 +6,14 @@ align-items: center;
 text-align: center;
 }
 
-h1 {
+.single-article-style h1 {
     font-size: 24px;
+    color: rgb(65, 57, 57);
     margin-bottom: 10px;
+}
+
+.single-article-style h2 {
+    color: rgb(65, 57, 57);
 }
 
 .single-article-style img {
