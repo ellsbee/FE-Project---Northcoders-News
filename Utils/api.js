@@ -32,3 +32,14 @@ export function getAllArticleComments(article_id) {
         console.log('there was an error retrieving the comments for this article', err)
     })
 }
+
+export function voteOnArticle(article_id, vote) {
+    return axios
+    .patch(`https://ellsbees-nc-news.onrender.com/api/articles/${article_id}`, {inc_votes: vote})
+    .then((response) => {
+        return response.data.votes
+    })
+    .catch((err) => {
+        console.log('unable to count vote', err)
+    })
+}
