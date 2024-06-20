@@ -1,4 +1,4 @@
-import { getArticleById, getAllArticleComments, voteOnArticle, postComment } from "../Utils/api";
+import { getArticleById, getAllArticleComments, voteOnArticle, postComment, deleteComment } from "../Utils/api";
 import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom' 
 import './SingleArticleStyle.css';
@@ -14,6 +14,9 @@ function SingleArticleCard() {
     const [newCommentBody, setNewCommentBody] = useState('')
     const {user} = useContext(UserContext)
     const [commentSuccess, setCommentSuccess] = useState(false)
+    const [deleteSuccess, setDeleteSuccess] = useState(null);
+    const [deleteError, setDeleteError] = useState(null);
+
 
     useEffect(() => {
         getArticleById(article_id)
@@ -65,8 +68,29 @@ function SingleArticleCard() {
             setCommentSuccess(true)
         })
         .catch((error) => {
-            console.error("Error posting comment", error)
-            alert("Unable to post comment")
+            console.error('Error posting comment', error)
+            alert('Unable to post comment')
+        })
+    };
+
+    function handleDeleteComment(comment_id, author) {  
+        if(user.username !== author){
+            setDeleteError('You can only delete your own comments!')
+            setDeleteSuccess(null);
+            return
+        }
+        deleteComment(comment_id)
+        .then(() => {
+            setComments((prevComments) =>
+            prevComments.filter((comment) => comment.comment_id !== comment_id)
+            );
+            setDeleteSuccess('Your comment was deleted');
+            setDeleteError(null);
+        })
+        .catch((error) => {
+            console.error('Error deleting comment', error);
+            setDeleteError('Could not delete comment. Please try again');
+            setDeleteSuccess(null);
         })
     };
     
@@ -96,17 +120,16 @@ function SingleArticleCard() {
                 required
                 />
             <br />
-            <button className="comment-button" type="submit">
-                Submit
-            </button>
+            <button className="comment-button" type="submit">Submit</button>
             {commentSuccess && <div className="comment-posted">Thanks for your comment!</div>}
             </form>
             </section>
             </section>
             <div className="article-comments">
                 <h2>Comments</h2>
+                {deleteError && <div className="unauthorised-delete">{deleteError}</div>}
                 {comments.map((comment) => {
-                return <CommentCard key={comment.comment_id} comment={comment} />
+                return <CommentCard key={comment.comment_id} comment={comment} onDelete={handleDeleteComment} deleteSuccess={deleteSuccess} deleteError={deleteError}/>
                 }
             )
         }
