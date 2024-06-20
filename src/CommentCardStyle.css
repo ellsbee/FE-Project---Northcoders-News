@@ -10,4 +10,5 @@
 .article-comments h2 {
     color: rgb(65, 57, 57);
     font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
 }

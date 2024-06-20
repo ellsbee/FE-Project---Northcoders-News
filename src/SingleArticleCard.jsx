@@ -1,14 +1,19 @@
-import { getArticleById, getAllArticleComments, voteOnArticle } from "../Utils/api";
-import { useState, useEffect } from 'react'
+import { getArticleById, getAllArticleComments, voteOnArticle, postComment } from "../Utils/api";
+import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom' 
 import './SingleArticleStyle.css';
 import CommentCard from "./CommentCard";
+import './PostCommentStyle.css'
+import { UserContext } from "./UserContext";
 
 function SingleArticleCard() {
     const {article_id} = useParams();
     const [article, setArticle] = useState(null)
     const [comments, setComments] = useState([])
     const [votes, setVotes] = useState(0)
+    const [newCommentBody, setNewCommentBody] = useState('')
+    const {user} = useContext(UserContext)
+    const [commentSuccess, setCommentSuccess] = useState(false)
 
     useEffect(() => {
         getArticleById(article_id)
@@ -40,6 +45,31 @@ function SingleArticleCard() {
         })
     }
 
+    function handleCommentSubmit(event) {
+        event.preventDefault();
+        
+        const optimisticComment = {
+            comment_id: comments[0].comment_id + 1,
+            body: newCommentBody,
+            article_id: article_id,
+            author: user.username,
+            votes: 0,
+            created_at: new Date().toISOString(),
+        }
+
+        setComments([optimisticComment, ...comments])
+        
+        postComment(article_id, user.username, newCommentBody)
+        .then(() => {
+            setNewCommentBody('')
+            setCommentSuccess(true)
+        })
+        .catch((error) => {
+            console.error("Error posting comment", error)
+            alert("Unable to post comment")
+        })
+    };
+    
     if(!article){
         return <div>Loading...</div>
     }
@@ -51,17 +81,35 @@ function SingleArticleCard() {
             <p>{article.body}</p>
             <p>Votes: {votes}</p>
             <div className="vote-buttons">
-            <button className="vote-button" onClick={() => handleVote(1)}
-            aria-label="Upvote">Upvote</button>
-            <button className="vote-button" onClick={() => handleVote(-1)}
-            aria-label="Downvote">Downvote</button>
+                <button className="vote-button" onClick={() => handleVote(1)} aria-label="Upvote article">Upvote</button>
+                <button className="vote-button" onClick={() => handleVote(-1)} aria-label="Downvote article">Downvote</button>
             </div>
+            <section>
+            <section>
+            <form onSubmit={handleCommentSubmit} className="form-style">
+                <h2>Leave a comment</h2>
+                <textarea
+                rows="5"
+                placeholder="Tell us what you think..."
+                value={newCommentBody}
+                onChange={(event) => setNewCommentBody(event.target.value)}
+                required
+                />
+            <br />
+            <button className="comment-button" type="submit">
+                Submit
+            </button>
+            {commentSuccess && <div className="comment-posted">Thanks for your comment!</div>}
+            </form>
+            </section>
+            </section>
             <div className="article-comments">
                 <h2>Comments</h2>
                 {comments.map((comment) => {
-                return <CommentCard comment={comment} key={comment.comment_id}/>
-            })}
-
+                return <CommentCard key={comment.comment_id} comment={comment} />
+                }
+            )
+        }
             </div>
         </div>
     )
