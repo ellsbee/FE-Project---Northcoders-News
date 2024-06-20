@@ -52,4 +52,13 @@ export function postComment(article_id, username, body) {
     });
 };
 
+export function deleteComment(comment_id) {
+    return axios
+    .delete(`https://ellsbees-nc-news.onrender.com/api/comments/${comment_id}`, { comment_id} )
+    .then(({ data }) => {
+        return data;
+    });
+};
+
+
 

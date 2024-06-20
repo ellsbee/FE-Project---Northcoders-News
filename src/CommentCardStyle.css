@@ -12,3 +12,29 @@
     font-family: Arial, Helvetica, sans-serif;
     text-align: left;
 }
+
+.comment-card-button {
+    display: flex;
+    justify-content: center;
+    background: none;
+    border: 1px solid rgb(65, 57, 57, 0.2);
+    color: rgb(65, 57, 57, 0.5);
+    padding: 10px 10px;
+    margin-right: 10px;
+    width: 80px;
+    height: 8px;
+    text-align: center;
+    font-weight: lighter;
+    line-height: 1.8px;
+    font-weight: bolder;
+    border-radius: 8rem;
+    transition: box-shadow 0.1s ease;
+}
+
+.comment-card-button:hover {
+    box-shadow: 0 6px 8px rgb(65, 57, 57, 0.2);
+}
+
+.comment-card-button:focus {
+    outline: none;
+}
