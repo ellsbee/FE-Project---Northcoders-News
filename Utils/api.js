@@ -43,3 +43,13 @@ export function voteOnArticle(article_id, vote) {
         console.log('unable to count vote', err)
     })
 }
+
+export function postComment(article_id, username, body) {
+    return axios
+    .post(`https://ellsbees-nc-news.onrender.com/api/articles/${article_id}/comments`, { username, body })
+    .then(({ data }) => {
+        return data;
+    });
+};
+
+
