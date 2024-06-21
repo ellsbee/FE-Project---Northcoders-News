@@ -58,10 +58,10 @@
     transition: box-shadow 0.1s ease;
 }
     
-    .comment-button:hover {
-        box-shadow: 0 6px 8px rgb(65, 57, 57, 0.2);
-    }
+.comment-button:hover {
+    box-shadow: 0 6px 8px rgb(65, 57, 57, 0.2);
+}
     
-    .comment-button:focus {
-        outline: none;
-    }
+.comment-button:focus {
+    outline: none;
+}

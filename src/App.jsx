@@ -5,6 +5,7 @@ import ArticleList from './ArticleList'
 import SingleArticleCard from './SingleArticleCard'
 import { UserProvider } from './UserContext'
 import './index.css'
+import Topics from './Topics'
 
 function App() {
   const user = ''
@@ -16,6 +17,8 @@ function App() {
       <Route path="/" element={<ArticleList />} />
       <Route path="/article" element={<ArticleList />} />
       <Route path="/article/:article_id" element={<SingleArticleCard />} />
+      <Route path="/topics" element={<Topics />} />
+      {/* <Route path="/topics/:slug" element={<ArticleTopicList />} /> */}
     </Routes>
     </BrowserRouter>
     </UserProvider>
