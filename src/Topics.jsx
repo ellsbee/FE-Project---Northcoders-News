@@ -20,7 +20,11 @@ function Topics() {
         getArticles(params.toString())
         .then((data) => {
             setArticles(data.articles);
-        });
+        })
+        .catch((err) => {
+            alert('That topic doesn\'t exist!')
+            console.log('That topic doesn\'t exist!', err)
+        })
     }, [sortBy, order, setSearchParams]);
 
     useEffect(() => {
