@@ -6,6 +6,7 @@ import SingleArticleCard from './SingleArticleCard'
 import { UserProvider } from './UserContext'
 import './index.css'
 import Topics from './Topics'
+import NotFound from './NotFound'
 
 function App() {
   const user = ''
@@ -18,6 +19,7 @@ function App() {
       <Route path="/article" element={<ArticleList />} />
       <Route path="/article/:article_id" element={<SingleArticleCard />} />
       <Route path="/topics" element={<Topics />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
     </BrowserRouter>
     </UserProvider>

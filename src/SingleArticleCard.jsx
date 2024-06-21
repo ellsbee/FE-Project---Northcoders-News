@@ -25,6 +25,8 @@ function SingleArticleCard() {
         setVotes(data.article.votes)
     })
     .catch((err) => {
+        alert('Looks like that article hasn\'t been written yet!')
+        setArticle(null)
         console.log('there was an error retreiving the article', err)
     })
     getAllArticleComments(article_id)
