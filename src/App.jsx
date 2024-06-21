@@ -18,7 +18,6 @@ function App() {
       <Route path="/article" element={<ArticleList />} />
       <Route path="/article/:article_id" element={<SingleArticleCard />} />
       <Route path="/topics" element={<Topics />} />
-      {/* <Route path="/topics/:slug" element={<ArticleTopicList />} /> */}
     </Routes>
     </BrowserRouter>
     </UserProvider>

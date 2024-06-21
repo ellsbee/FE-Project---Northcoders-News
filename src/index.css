@@ -51,7 +51,7 @@ h1 {
 .button-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Adjust margin as needed */
+  margin-top: 20px;
 }
 
 .coding-button,
@@ -79,4 +79,27 @@ h1 {
 .football-button:focus,
 .cooking-button:focus {
   outline: none;
+}
+
+.sort-by {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.sort-by-dropdown {
+  margin-left: 10px;
+}
+
+.sort-by-button {
+  margin-left: 20px;
+  background: none;
+  border: 1px solid rgb(216, 55, 49);
+  color: rgb(65, 57, 57);
+  padding: 4px 4px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 8rem;
+  transition: box-shadow 0.1s ease;
 }
