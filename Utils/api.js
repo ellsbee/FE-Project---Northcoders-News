@@ -60,5 +60,16 @@ export function deleteComment(comment_id) {
     });
 };
 
+export function getTopics() {
+    return axios
+    .get(`https://ellsbees-nc-news.onrender.com/api/topics`).then(({ data }) => {
+    return data;
+    });
+};
 
-
+export function getArticlesByTopic(slug) {
+    return axios
+    .get(`https://ellsbees-nc-news.onrender.com/api/articles?topic=${slug}`).then(({ data }) => {
+    return data;
+    });
+};
